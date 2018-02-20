@@ -479,7 +479,7 @@ namespace VROUI.Forms
 
                 Process UserProcess = new Process();
                 UserProcess.StartInfo.UseShellExecute = true;
-                UserProcess.StartInfo.FileName = "D:/Source/VRO/VRO Demo 1.0/VROUI/bin/x64/Debug/Engine/WrapperThread.exe";
+                UserProcess.StartInfo.FileName = ".\\Engine\\Run.bat";
                 UserProcess.StartInfo.CreateNoWindow = false;
                 UserProcess.StartInfo.WorkingDirectory = Application.StartupPath.ToString();
                 //UserProcess.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;

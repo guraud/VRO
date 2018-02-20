@@ -312,7 +312,7 @@ namespace VROUI.Services
             sql.Append("        DESC01, DESC02, PLNIDC, CREDAT, CREUSR, UPTDAT, UPTUSR");
             sql.Append("   FROM TH_IN_PLC");
             sql.Append("  WHERE 1 = 1");
-            sql.Append("    AND TRIM(divisn)  = '");
+            sql.Append("    AND divisn  = '");
             sql.Append(division);
             sql.Append("'");
             sql.Append("    AND corpor  = '");
@@ -500,7 +500,7 @@ namespace VROUI.Services
                     break;
             }
 
-            sql.Append(" where TRIM(divisn) = '");
+            sql.Append(" where DIVISN = '");
             sql.Append(division);
             sql.Append("'");
             sql.Append(" and   CORPOR = '");
@@ -894,7 +894,7 @@ namespace VROUI.Services
             sql.Append("           SELECT A.DIVISN, A.CORPOR, A.PLANT , A.MST_ID, A.PLANID, A.PLANST, MAX( DISTINCT A.VEHCID ) VHCCNT,");
             sql.Append("                  ( SELECT COUNT(1)");
             sql.Append("                      FROM TH_IN_CAR ");
-            sql.Append("                     WHERE TRIM(divisn)  = A.DIVISN");
+            sql.Append("                     WHERE DIVISN  = A.DIVISN");
             sql.Append("                       AND CORPOR  = A.CORPOR");
             sql.Append("                       AND PLANT   = A.PLANT");
             sql.Append("                       AND MST_ID  = A.MST_ID");
@@ -911,8 +911,8 @@ namespace VROUI.Services
             sql.Append("                                                    ELSE NULL ");
             sql.Append("                                                END ) ");
             sql.Append("                                   END ) PLTSUM");
-            sql.Append("                      FROM TKXADS18_PHA ");
-            sql.Append("                     WHERE TRIM(divisn)  = A.DIVISN");
+            sql.Append("                      FROM TH_OUT_RESULT ");
+            sql.Append("                     WHERE DIVISN  = A.DIVISN");
             sql.Append("                       AND CORPOR  = A.CORPOR");
             sql.Append("                       AND PLANT   = A.PLANT");
             sql.Append("                       AND MST_ID  = A.MST_ID");
@@ -926,8 +926,8 @@ namespace VROUI.Services
             sql.Append("                   ROUND( SUM( CASE WHEN RTRIM(A.VEHCID) IS NULL THEN A.PLTCNT ELSE 0 END ) / MAX( NVL(A.LIMPLT,1) ) * 100, 3 ) NLDRTO,");
             sql.Append("                   ROUND( SUM( CASE WHEN RTRIM(A.VEHCID) IS NOT NULL AND A.TRIPNO BETWEEN 1 AND 98 THEN A.PLTCNT ELSE 0 END ) / MAX(  DECODE(NVL(A.LIMPLT,1), 0, 1, NVL(A.LIMPLT,1)) ) * 100, 3 ) ALDRTO,");
             sql.Append("                   ( SELECT SUM( PLTCNT ) PLTSUM");
-            sql.Append("                       FROM TKXADS18_PHA ");
-            sql.Append("                      WHERE TRIM(divisn)  = A.DIVISN");
+            sql.Append("                       FROM TH_OUT_RESULT ");
+            sql.Append("                      WHERE DIVISN  = A.DIVISN");
             sql.Append("                        AND CORPOR  = A.CORPOR");
             sql.Append("                        AND PLANT   = A.PLANT");
             sql.Append("                        AND MST_ID  = A.MST_ID");
@@ -942,23 +942,23 @@ namespace VROUI.Services
             sql.Append("                            CASE WHEN SUM( CASE WHEN RTRIM(A.VEHCID) IS NULL THEN 0 ELSE A.BOXCNT END ) = 0 THEN 1 ELSE SUM( CASE WHEN RTRIM(A.VEHCID) IS NULL THEN 0 ELSE A.BOXCNT END ) END");
             sql.Append("                            , 2");
             sql.Append("                         ) UNTCST");
-            sql.Append("              FROM TKXADS18_PHA A, TH_IN_STOP B, TH_IN_CAR C");
+            sql.Append("              FROM TH_OUT_RESULT A, TH_IN_STOP B, TH_IN_CAR C");
             sql.Append("             WHERE 1 = 1");
-            sql.Append("               AND TRIM(A.divisn)  = TRIM(B.divisn(+))");
+            sql.Append("               AND A.DIVISN  = B.DIVISN(+)");
             sql.Append("               AND A.CORPOR  = B.CORPOR(+)");
             sql.Append("               AND A.PLANT   = B.PLANT(+)");
             sql.Append("               AND A.MST_ID  = B.MST_ID(+)");
             sql.Append("               AND A.PLANID  = B.PLANID(+)");
             sql.Append("               AND A.PLANST  = B.PLANST(+)");
             sql.Append("               AND A.STOPID  = B.STOPID(+)");
-            sql.Append("               AND TRIM(A.divisn)  = TRIM(C.divisn(+))");
+            sql.Append("               AND A.DIVISN  = C.DIVISN(+)");
             sql.Append("               AND A.CORPOR  = C.CORPOR(+)");
             sql.Append("               AND A.PLANT   = C.PLANT(+)");
             sql.Append("               AND A.MST_ID  = C.MST_ID(+)");
             sql.Append("               AND A.PLANID  = C.PLANID(+)");
             sql.Append("               AND A.PLANST  = C.PLANST(+)");
             sql.Append("               AND A.VEHCID  = C.VEHCID(+)");
-            sql.Append("               AND TRIM(A.DIVISN)  = '");
+            sql.Append("               AND A.DIVISN  = '");
             sql.Append(division);
             sql.Append("'");
             sql.Append("               AND A.CORPOR  = '");
@@ -1035,7 +1035,7 @@ namespace VROUI.Services
 
             sql.Append("select  PLANDT, PLANST , POLYID, FLAG02, '0UU1EE0EE1UU0EEOUUOEE' AS PLAN_STATUS_BUTTON");
             sql.Append("  from TH_IN_PLAN");
-            sql.Append(" where TRIM(DIVISN) = '");
+            sql.Append(" where DIVISN = '");
             sql.Append(division);
             sql.Append("'");
             sql.Append(" and   CORPOR = '");
@@ -1235,7 +1235,7 @@ namespace VROUI.Services
             sql.Append(" select  distinct VELCID ");
             sql.Append(" from    tkxads18_int ");
             sql.Append(" where   1 = 1");
-            sql.Append(" AND     TRIM(divisn) = '");
+            sql.Append(" AND     divisn  = '");
             sql.Append(division);
             sql.Append("'");
             sql.Append(" AND     corpor  = '");
@@ -1402,19 +1402,19 @@ namespace VROUI.Services
                 sql.Append("                                   THEN  '차고지 도착'");
                 sql.Append("                                   ELSE  '센터 도착'");
                 sql.Append("                              END");
-                sql.Append("                   ELSE  C.STOPNM ");
+                sql.Append("                   ELSE  C.STOP_NM ");
                 sql.Append("             END");
                 sql.Append("        END STOPNM,");
-                sql.Append("        'ATTR01' ATTR01, 'STOPGR' STOPGR, C.ADDRSS, A.SDST01, A.SDST02, A.SVHTON, A.SVHTYP, 'AVEHID' AS AVEHID, ");
+                sql.Append("        'ATTR01' ATTR01, 'STOPGR' STOPGR, C.ADDR_BASIC AS ADDRSS, A.SDST01, decode(A.SDST02, 'SCHOOL', '급식', 'NORMAL', '일반', 'VENDOR', '직판', 'TROOP', '군납', A.SDST02) SDST02, A.SVHTON, A.SVHTYP, 'AVEHID' AS AVEHID, ");
                 sql.Append("        A.SPTMFR||'-'||DECODE( A.SPTMTO, '23:59:59', '24:00:00', A.SPTMTO ) SPTMFR, 'OFFTFR' OFFTFR,");
                 sql.Append("        A.OFFTTO, A.DSTLEN, A.BOXCNT, A.WEIGHT, A.VOLUME, A.PLTCNT, A.ARRVTM, A.WORKTM, A.LEAVTM, A.PREPTM,");
                 sql.Append("        A.UNLDTM, A.TOTWTM, A.ORDTYP, NULL AS MALTYP, A.TARF01, A.TARF02, A.TARF03, A.FALLOC, NULL AS DSPTNO");
-                sql.Append("   FROM TKXADS18_PHA A");
+                sql.Append("   FROM TH_OUT_RESULT A");
                 sql.Append("   LEFT OUTER JOIN (");
                 sql.Append("                     SELECT  A.VEHCID, MAX(A.TURNNO) TURNNO");
-                sql.Append("                       FROM    TKXADS18_PHA A");
+                sql.Append("                       FROM    TH_OUT_RESULT A");
                 sql.Append("                      WHERE   1 = 1");
-                sql.Append("                        AND     TRIM(A.DIVISN)  = '");
+                sql.Append("                        AND     A.DIVISN  = '");
                 sql.Append(division);
                 sql.Append("'");
                 sql.Append("                        AND     A.CORPOR  = '");
@@ -1442,10 +1442,10 @@ namespace VROUI.Services
                 sql.Append("                      GROUP BY  A.VEHCID");
                 sql.Append("                   ) B");
                 sql.Append("     ON  A.VEHCID  = B.VEHCID");
-                sql.Append("    LEFT OUTER JOIN TKXADS18_ARR C");
-                sql.Append("     ON  A.STOPID = C.STOPID");
+                sql.Append("    LEFT OUTER JOIN (SMILK_ARR) C");
+                sql.Append("     ON  SUBSTR (A.STOPID, 0, DECODE (  INSTR (A.STOPID, '_', 1, 1) - 1, -1, LENGTH (A.STOPID), INSTR (A.STOPID, '_', 1, 1)-1)) = C.STOP_CD");
                 sql.Append("  WHERE   1 = 1");
-                sql.Append("    AND     TRIM(A.DIVISN)  = '");
+                sql.Append("    AND     A.DIVISN  = '");
                 sql.Append(division);
                 sql.Append("'");
                 sql.Append("    AND     A.CORPOR  = '");
@@ -1484,9 +1484,9 @@ namespace VROUI.Services
                 sql.Append("        A.SVHTON, A.SVHTYP, NULL AS AVEHID, A.SPTMFR||'-'||DECODE( A.SPTMTO, '23:59:59', '24:00:00', A.SPTMTO ) SPTMFR, A.OFFTFR,");
                 sql.Append("        A.OFFTTO, A.DSTLEN, A.BOXCNT, A.WEIGHT, A.VOLUME, A.PLTCNT, A.ARRVTM, A.WORKTM, A.LEAVTM, A.PREPTM,");
                 sql.Append("        A.UNLDTM, A.TOTWTM, A.ORDTYP, NULL AS MALTYP, A.TARF01, A.TARF02, A.TARF03, A.FALLOC, NULL AS DSPTNO");
-                sql.Append("   FROM TKXADS18_PHA A");
+                sql.Append("   FROM TH_OUT_RESULT A");
                 sql.Append("  WHERE 1 = 1");
-                sql.Append("    AND TRIM(A.DIVISN)  = '");
+                sql.Append("    AND A.DIVISN  = '");
                 sql.Append(division);
                 sql.Append("'");
                 sql.Append("    AND A.CORPOR  = '");
@@ -1798,7 +1798,7 @@ namespace VROUI.Services
             sql.Append(planST);
             sql.Append("   and VEHCID in (");
             sql.Append("                   select distinct VEHCID ");
-            sql.Append("                     from TKXADS18_PHA");
+            sql.Append("                     from TH_OUT_RESULT");
 
             sql.Append("                    where DIVISN = '");
             sql.Append(division);

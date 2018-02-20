@@ -13,7 +13,7 @@
     <objects xmlns="http://www.springframework.net">
 
       <!-- Services -->
-      <object name="DbService" type="VROUI.Services.DbService, VROUI" init-method="Initialize">
+      <object name="DbService" type="TMSUI.Services.DbService, TMSUI" init-method="Initialize">
         <property name="Server" value="guraud"/>
         <property name="Port" value="1521"/>
         <property name="Sid" value="dkorcl"/>
@@ -23,7 +23,7 @@
         <property name="ConnectionTimeout" value="30"/>
       </object>
 
-      <object name="BizService" type="VROUI.Services.BizService, VROUI" init-method="Initialize">
+      <object name="BizService" type="TMSUI.Services.BizService, TMSUI" init-method="Initialize">
       </object>
 
     </objects>

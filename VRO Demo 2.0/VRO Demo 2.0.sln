@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27130.2027
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TMSUI", "TMSUI\TMSUI.csproj", "{549D96A9-814A-4010-82DC-B03391D46B7D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VROUI", "VROUI\VROUI.csproj", "{549D96A9-814A-4010-82DC-B03391D46B7D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
